@@ -1,6 +1,7 @@
 /**
  * External dependencies
  */
+const minimist = require( 'minimist' );
 const { sync: spawn } = require( 'cross-spawn' );
 const { sync: resolveBin } = require( 'resolve-bin' );
 
@@ -17,6 +18,9 @@ const {
 
 const args = getCliArgs();
 
+const hasFiles = minimist( args )._.length > 0;
+const defaultFilesArgs = ! hasFiles ? [ '**/*.{css,scss}' ] : [];
+
 const hasStylelintConfig = hasCliArg( '--config' ) ||
 	hasProjectFile( '.stylelintrc' ) ||
 	hasProjectFile( '.stylelintrc.js' ) ||
@@ -26,13 +30,13 @@ const hasStylelintConfig = hasCliArg( '--config' ) ||
 	hasProjectFile( '.stylelint.config.js' ) ||
 	hasPackageProp( 'stylelint' );
 
-const config = ! hasStylelintConfig ?
+const defaultConfigArgs = ! hasStylelintConfig ?
 	[ '--config', fromConfigRoot( '.stylelintrc.json' ) ] :
 	[];
 
 const result = spawn(
 	resolveBin( 'stylelint' ),
-	[ ...config, ...args ],
+	[ ...defaultConfigArgs, ...args, ...defaultFilesArgs ],
 	{ stdio: 'inherit' }
 );
 

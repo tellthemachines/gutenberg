@@ -30,8 +30,11 @@ services:
         - chmod +x wp-cli.phar
         - mv wp-cli.phar /usr/local/bin/wp
 
+        # Download and install WordPress
+        - wp core download
+        - wp config create --dbname=tugboat --dbuser=tugboat --dbpass=tugboat --dbhost=mysql
         # Use the tugboat-specific wp-config.local.php
-        - cp "${TUGBOAT_ROOT}/.tugboat/wp-config.local.php" "${DOCROOT}/"
+        # - cp "${TUGBOAT_ROOT}/.tugboat/wp-config.local.php" "${DOCROOT}/"
 
         # Link the document root to the expected path. This example links /web
         # to the docroot

@@ -31,7 +31,7 @@ services:
         - mv wp-cli.phar /usr/local/bin/wp
 
         # Download and install WordPress
-        - wp core download
+        - wp core download --allow-root
         - wp config create --dbname=tugboat --dbuser=tugboat --dbpass=tugboat --dbhost=mysql
         # Use the tugboat-specific wp-config.local.php
         # - cp "${TUGBOAT_ROOT}/.tugboat/wp-config.local.php" "${DOCROOT}/"

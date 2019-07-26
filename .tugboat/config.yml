@@ -31,10 +31,10 @@ services:
         - mv wp-cli.phar /usr/local/bin/wp
 
         # Download and install WordPress
-        - wp core download --path=webpreview
+        - wp --allow-root core download --path=webpreview
         - cd webpreview
-        - wp config create --dbname=tugboat --dbuser=tugboat --dbpass=tugboat --dbhost=mysql
-        - wp core install --url=${DOCROOT} --title=preview --admin_user=admin --admin_email=test@test.com
+        - wp --allow-root config create --dbname=tugboat --dbuser=tugboat --dbpass=tugboat --dbhost=mysql
+        - wp --allow-root core install --url=${DOCROOT} --title=preview --admin_user=admin --admin_email=test@test.com
         # Use the tugboat-specific wp-config.local.php
         # - cp "${TUGBOAT_ROOT}/.tugboat/wp-config.local.php" "${DOCROOT}/"
 

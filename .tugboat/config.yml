@@ -33,7 +33,7 @@ services:
         # Download and install WordPress
         - wp --allow-root core download --path=webpreview
         - wp --allow-root config create --dbname=tugboat --dbuser=tugboat --dbpass=tugboat --dbhost=mysql --path=webpreview
-        - wp --allow-root core install --url=webpreview --title=preview --admin_user=admin --admin_email=test@test.com --path=webpreview
+        - wp --allow-root core install --url=example.com --title=preview --admin_user=admin --admin_email=test@test.com --path=webpreview
         # Use the tugboat-specific wp-config.local.php
         # - cp "${TUGBOAT_ROOT}/.tugboat/wp-config.local.php" "${DOCROOT}/"
 

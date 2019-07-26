@@ -90,3 +90,13 @@ services:
         # - scp user@example.com:database.sql.gz /tmp/database.sql.gz
         # - zcat /tmp/database.sql.gz | mysql tugboat
         # - rm /tmp/database.sql.gz
+
+  node:
+    image: tugboatqa/node:lts
+
+    checkout: true
+
+    commands:
+      build:
+        - npm install
+        - npm run build

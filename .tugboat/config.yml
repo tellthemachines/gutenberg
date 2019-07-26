@@ -66,9 +66,9 @@ services:
       # from the base preview.
       build: |
         if [ "x${TUGBOAT_BASE_PREVIEW}" != "x" ]; then
-            wp --allow-root search-replace "${TUGBOAT_BASE_PREVIEW_URL_HOST}" "${TUGBOAT_SERVICE_URL_HOST}" --skip-columns=guid
+            wp --allow-root --path=webpreview search-replace "${TUGBOAT_BASE_PREVIEW_URL_HOST}" "${TUGBOAT_SERVICE_URL_HOST}" --skip-columns=guid
         else
-            wp --allow-root search-replace 'wordpress.local' "${TUGBOAT_SERVICE_URL_HOST}" --skip-columns=guid
+            wp --allow-root --path=webpreview search-replace 'wordpress.local' "${TUGBOAT_SERVICE_URL_HOST}" --skip-columns=guid
         fi
 
   # What to call the service hosting MySQL. This name also acts as the

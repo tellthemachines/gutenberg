@@ -31,15 +31,16 @@ services:
         - mv wp-cli.phar /usr/local/bin/wp
 
         # Download and install WordPress
-        - wp core download --allow-root
-        - wp config create --dbname=tugboat --dbuser=tugboat --dbpass=tugboat --dbhost=mysql --allow-root
-        - wp core install --url=${DOCROOT} --title=preview --admin_user=admin --admin_email=test@test.com --allow-root
+        - wp core download --path=webpreview
+        - cd webpreview
+        - wp config create --dbname=tugboat --dbuser=tugboat --dbpass=tugboat --dbhost=mysql
+        - wp core install --url=${DOCROOT} --title=preview --admin_user=admin --admin_email=test@test.com
         # Use the tugboat-specific wp-config.local.php
         # - cp "${TUGBOAT_ROOT}/.tugboat/wp-config.local.php" "${DOCROOT}/"
 
         # Link the document root to the expected path. This example links /web
         # to the docroot
-        - ln -snf "${TUGBOAT_ROOT}/web" "${DOCROOT}"
+        - ln -snf "${TUGBOAT_ROOT}/webpreview" "${DOCROOT}"
 
       # Commands that import files, databases, or other assets. When an
       # existing preview is refreshed, the build workflow starts here,

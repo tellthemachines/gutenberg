@@ -20,7 +20,8 @@ services:
         # Install prerequisite packages
         - apt-get update
         - apt-get install -y rsync
-        - apt-get install nodejs
+        - apt-get install curl python-software-properties
+        - curl -sL https://deb.nodesource.com/setup_10.x | -E bash -
 
         # Install npm dependenciesfor Gutenberg package
         - npm install

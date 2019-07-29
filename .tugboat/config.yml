@@ -46,17 +46,17 @@ services:
         # to the docroot
         - ln -snf "${TUGBOAT_ROOT}/webpreview" "${DOCROOT}"
 
-        # Replace site URLs
-        |
+        # Cleanup
+        - apt-get clean
+        - rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+      # Replace site URLs
+      update: |
         if [ "x${TUGBOAT_BASE_PREVIEW}" != "x" ]; then
             wp --allow-root --path=webpreview search-replace "${TUGBOAT_BASE_PREVIEW_URL_HOST}" "${TUGBOAT_SERVICE_URL_HOST}" --skip-columns=guid
         else
             wp --allow-root --path=webpreview search-replace 'example.com' "${TUGBOAT_SERVICE_URL_HOST}" --skip-columns=guid
         fi
-
-        # Cleanup
-        - apt-get clean
-        - rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
       # Commands that build the site. When a preview is built from a
       # base preview, the build workflow starts here, skipping the init

@@ -20,6 +20,11 @@ services:
         # Install prerequisite packages
         - apt-get update
         - apt-get install -y rsync
+        - apt-get install nodejs
+        - apt-get install npm
+
+        # Install npm dependenciesfor Gutenberg package
+        - npm install
 
         # Install the PHP mysqli extension
         - docker-php-ext-install mysqli
@@ -71,6 +76,10 @@ services:
             wp --allow-root --path=webpreview search-replace 'example.com' "${TUGBOAT_SERVICE_URL_HOST}" --skip-columns=guid
         fi
 
+        - npm run build
+        - ln -snf "${TUGBOAT_ROOT}/webpreview" "${TUGBOAT_ROOT}/webpreview/wp-content/plugins/gutenberg"
+        - wp --allow-root plugin activate gutenberg --path=webpreview
+
   # What to call the service hosting MySQL. This name also acts as the
   # hostname to access the service by from the php service.
   mysql:
@@ -90,13 +99,3 @@ services:
         # - scp user@example.com:database.sql.gz /tmp/database.sql.gz
         # - zcat /tmp/database.sql.gz | mysql tugboat
         # - rm /tmp/database.sql.gz
-
-  node:
-    image: tugboatqa/node:lts
-
-    checkout: true
-
-    commands:
-      build:
-        - npm install
-        - npm run build

@@ -77,7 +77,7 @@ services:
         fi
 
         - npm run build
-        - ln -snf "${TUGBOAT_ROOT}/webpreview" "${TUGBOAT_ROOT}/webpreview/wp-content/plugins/gutenberg"
+        - ln -snf "${TUGBOAT_ROOT}" "${TUGBOAT_ROOT}/webpreview/wp-content/plugins/gutenberg"
         - wp --allow-root plugin activate gutenberg --path=webpreview
 
   # What to call the service hosting MySQL. This name also acts as the
